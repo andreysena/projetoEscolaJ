@@ -10,5 +10,6 @@ package Model;
  * @author Natan G. de Abreu
  */
 public class Aluno {
+	String teste;
     
 }
