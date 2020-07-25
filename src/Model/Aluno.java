@@ -10,5 +10,5 @@ package Model;
  * @author Natan G. de Abreu
  */
 public class Aluno {
-    
+    private String aluno;
 }
