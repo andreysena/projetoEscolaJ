@@ -16,16 +16,16 @@ public class Aluno {
     private String telefone;
     private String cpf;
     private String rg;
-    private int turma;
+    private int FkTurma;
 
-    public Aluno(String nome, String numeroMatricula, String dtNascimento, String telefone, String cpf, String rg, int turma) {
+    public Aluno(String nome, String numeroMatricula, String dtNascimento, String telefone, String cpf, String rg, int FkTurma) {
         this.nome = nome;
         this.numeroMatricula = numeroMatricula;
         this.dtNascimento = dtNascimento;
         this.telefone = telefone;
         this.cpf = cpf;
         this.rg = rg;
-        this.turma = turma;
+        this.FkTurma = FkTurma;
     }
 
     public String getNome() {
@@ -76,13 +76,13 @@ public class Aluno {
         this.rg = rg;
     }
 
-    public int getTurma() {
-        return turma;
+    public int getFkTurma() {
+        return FkTurma;
     }
 
-    public void setTurma(int turma) {
-        this.turma = turma;
+    public void setFkTurma(int FK_Turma) {
+        this.FkTurma = FK_Turma;
     }
-    
-    
+
+   
 }
