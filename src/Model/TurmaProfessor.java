@@ -10,28 +10,28 @@ package Model;
  * @author Natan G. de Abreu
  */
 public class TurmaProfessor {
-    private int turma;
-    private int professor;
+    private int FkTurmaProf;
+    private int FkProfTurma;
 
-    public TurmaProfessor(int turma, int professor) {
-        this.turma = turma;
-        this.professor = professor;
+    public TurmaProfessor(int FkTurmaProf, int FkProfTurma) {
+        this.FkTurmaProf = FkTurmaProf;
+        this.FkProfTurma = FkProfTurma;
     }
 
-    public int getTurma() {
-        return turma;
+    public int getFkTurmaProf() {
+        return FkTurmaProf;
     }
 
-    public void setTurma(int turma) {
-        this.turma = turma;
+    public void setFkTurmaProf(int FkTurmaProf) {
+        this.FkTurmaProf = FkTurmaProf;
     }
 
-    public int getProfessor() {
-        return professor;
+    public int getFkProfTurma() {
+        return FkProfTurma;
     }
 
-    public void setProfessor(int professor) {
-        this.professor = professor;
+    public void setFkProfTurma(int FkProfTurma) {
+        this.FkProfTurma = FkProfTurma;
     }
     
     

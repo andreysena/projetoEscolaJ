@@ -10,28 +10,18 @@ package Model;
  * @author Natan G. de Abreu
  */
 public class Coordenador {
-    private String numeroAulas;
-    private int funcionario;
+    private int FkFuncCoord;
 
-    public Coordenador(String numeroAulas, int funcionario) {
-        this.numeroAulas = numeroAulas;
-        this.funcionario = funcionario;
+    public Coordenador(int FkFuncCoord) {
+        this.FkFuncCoord = FkFuncCoord;
     }
 
-    public String getNumeroAulas() {
-        return numeroAulas;
+    public int getFkFuncCoord() {
+        return FkFuncCoord;
     }
 
-    public void setNumeroAulas(String numeroAulas) {
-        this.numeroAulas = numeroAulas;
-    }
-
-    public int getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(int funcionario) {
-        this.funcionario = funcionario;
+    public void setFkFuncCoord(int funcionario) {
+        this.FkFuncCoord = funcionario;
     }
     
     

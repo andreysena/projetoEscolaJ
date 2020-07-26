@@ -11,13 +11,13 @@ package Model;
  */
 public class Funcionario {
     private String nomeFuncionario;
-    private String salario;
+    private Double salario;
     private String dtNascimento;
     private String telefone;
     private String cpf;
     private String rg;
 
-    public Funcionario(String nomeFuncionario, String salario, String dtNascimento, String telefone, String cpf, String rg) {
+    public Funcionario(String nomeFuncionario, Double salario, String dtNascimento, String telefone, String cpf, String rg) {
         this.nomeFuncionario = nomeFuncionario;
         this.salario = salario;
         this.dtNascimento = dtNascimento;
@@ -34,11 +34,11 @@ public class Funcionario {
         this.nomeFuncionario = nomeFuncionario;
     }
 
-    public String getSalario() {
+    public Double getSalario() {
         return salario;
     }
 
-    public void setSalario(String salario) {
+    public void setSalario(Double salario) {
         this.salario = salario;
     }
 
