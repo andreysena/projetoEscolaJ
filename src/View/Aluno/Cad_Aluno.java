@@ -4,20 +4,54 @@
  * and open the template in the editor.
  */
 package View.Aluno;
-
+import Controller.ControllerAluno;
+import DAO.DaoAluno;
+import View.Turma.Cad_Turma;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Natan G. de Abreu
  */
 public class Cad_Aluno extends javax.swing.JFrame {
 
+    private ControllerAluno validaAluno;
     /**
      * Creates new form Cad_Aluno
      */
     public Cad_Aluno() {
         initComponents();
+        carregaTurma();
+        validaAluno = new ControllerAluno(this);
     }
 
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+    
+    public void carregaTurma(){
+    
+        DAO.DaoAluno listaAluno = new DaoAluno();
+        ResultSet rs = listaAluno.listar();
+        
+        try{
+            while(rs.next()){
+                comboTurma.addItem(rs.getString(2));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void buscar(String cod, String nome, String matricula, String dt_nasc, String cpf, String rg, String telefone, int FkTruma){
+        
+        txtID.setText(cod);
+        txtNomeAluno.setText(nome);
+        txtMatricula.setText(matricula);
+        txtDataNascimento.setText(dt_nasc);
+        txtNomeAluno.setText();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +79,7 @@ public class Cad_Aluno extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         txtID = new javax.swing.JTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,8 +117,20 @@ public class Cad_Aluno extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
-        txtID.setText("Insira o ID...");
+        txtID.setEditable(false);
+
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,9 +176,11 @@ public class Cad_Aluno extends javax.swing.JFrame {
                                 .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(236, 236, 236)
+                        .addGap(185, 185, 185)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(316, 316, 316)
@@ -139,9 +188,7 @@ public class Cad_Aluno extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(359, 359, 359)
                         .addComponent(jLabel8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(309, 309, 309)
-                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -176,9 +223,10 @@ public class Cad_Aluno extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
-                    .addComponent(btnSalvar))
-                .addGap(78, 78, 78)
-                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnAlterar))
+                .addGap(72, 72, 72)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -186,7 +234,28 @@ public class Cad_Aluno extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        String nome = txtNomeAluno.getText();
+        String matricula = txtMatricula.getText();
+        String dt_nasc = txtDataNascimento.getText();
+        String cpf = txtCpf.getText();
+        String rg = txtRg.getText();
+        String telefone = txtTelefone.getText();
+        int FkTurma = comboTurma.getSelectedIndex();
+        
+        validaAluno.verificar(nome, matricula, dt_nasc, cpf, rg, telefone, FkTurma);
+        
+                
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,6 +294,7 @@ public class Cad_Aluno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> comboTurma;
