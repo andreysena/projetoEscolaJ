@@ -10,5 +10,29 @@ package Model;
  * @author Natan G. de Abreu
  */
 public class Professor {
+    private String numeroAulas;
+    private int funcionario;
+
+    public Professor(String numeroAulas, int funcionario) {
+        this.numeroAulas = numeroAulas;
+        this.funcionario = funcionario;
+    }
+
+    public String getNumeroAulas() {
+        return numeroAulas;
+    }
+
+    public void setNumeroAulas(String numeroAulas) {
+        this.numeroAulas = numeroAulas;
+    }
+
+    public int getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(int funcionario) {
+        this.funcionario = funcionario;
+    }
+    
     
 }
