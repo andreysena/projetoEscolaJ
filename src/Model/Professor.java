@@ -11,11 +11,11 @@ package Model;
  */
 public class Professor {
     private String numeroAulas;
-    private int funcionario;
+    private int FkFuncProf;
 
-    public Professor(String numeroAulas, int funcionario) {
+    public Professor(String numeroAulas, int FkFuncProf) {
         this.numeroAulas = numeroAulas;
-        this.funcionario = funcionario;
+        this.FkFuncProf = FkFuncProf;
     }
 
     public String getNumeroAulas() {
@@ -26,12 +26,12 @@ public class Professor {
         this.numeroAulas = numeroAulas;
     }
 
-    public int getFuncionario() {
-        return funcionario;
+    public int getFkFuncProf() {
+        return FkFuncProf;
     }
 
-    public void setFuncionario(int funcionario) {
-        this.funcionario = funcionario;
+    public void setFkFuncProf(int funcionario) {
+        this.FkFuncProf = funcionario;
     }
     
     

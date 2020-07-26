@@ -10,39 +10,35 @@ package Model;
  * @author Natan G. de Abreu
  */
 public class Turma {
-    private int professor;
-    private int turma;
-    private int coordTurma;
+    private String letra_turma;
+    private int FkCoordenador;
+    
+    
 
-    public Turma(int professor, int turma, int coordTurma) {
-        this.professor = professor;
-        this.turma = turma;
-        this.coordTurma = coordTurma;
+    public Turma(String letra_turma, int FkCoordenador) {
+        this.letra_turma = letra_turma;
+        this.FkCoordenador = FkCoordenador;
     }
 
-    public int getProfessor() {
-        return professor;
+    public String getLetra_turma() {
+        return letra_turma;
     }
 
-    public void setProfessor(int professor) {
-        this.professor = professor;
+    public void setLetra_turma(String letra_turma) {
+        this.letra_turma = letra_turma;
     }
 
-    public int getTurma() {
-        return turma;
+    public int getFkCoordenador() {
+        return FkCoordenador;
     }
 
-    public void setTurma(int turma) {
-        this.turma = turma;
+    public void setFkCoordenador(int FkCoordenador) {
+        this.FkCoordenador = FkCoordenador;
     }
+    
+    
 
-    public int getCoordTurma() {
-        return coordTurma;
-    }
-
-    public void setCoordTurma(int coordTurma) {
-        this.coordTurma = coordTurma;
-    }
+   
     
     
 }

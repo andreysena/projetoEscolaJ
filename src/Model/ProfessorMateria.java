@@ -10,29 +10,29 @@ package Model;
  * @author Natan G. de Abreu
  */
 public class ProfessorMateria {
-    private int professor;
-    private int materia;
+    private int FkProfMat;
+    private int FkMateria;
 
-    public ProfessorMateria(int professor, int materia) {
-        this.professor = professor;
-        this.materia = materia;
+    public ProfessorMateria(int FkProfMat, int FkMateria) {
+        this.FkProfMat = FkProfMat;
+        this.FkMateria = FkMateria;
     }
 
-    public int getProfessor() {
-        return professor;
+    public int getFkProfMat() {
+        return FkProfMat;
     }
 
-    public void setProfessor(int professor) {
-        this.professor = professor;
+    public void setFkProfMat(int FkProfMat) {
+        this.FkProfMat = FkProfMat;
     }
 
-    public int getMateria() {
-        return materia;
+    public int getFkMateria() {
+        return FkMateria;
     }
 
-    public void setMateria(int materia) {
-        this.materia = materia;
+    public void setFkMateria(int FkMateria) {
+        this.FkMateria = FkMateria;
     }
-    
+     
     
 }
