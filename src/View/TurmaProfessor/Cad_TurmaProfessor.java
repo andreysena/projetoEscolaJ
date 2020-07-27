@@ -4,18 +4,64 @@
  * and open the template in the editor.
  */
 package View.TurmaProfessor;
-
+import Controller.ControllerTurmaProf;
+import DAO.DaoProfessor;
+import DAO.DaoTurma;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Natan G. de Abreu
  */
 public class Cad_TurmaProfessor extends javax.swing.JFrame {
 
+    private ControllerTurmaProf validaturmaProf;
     /**
      * Creates new form Cad_TurmaProfessor
      */
     public Cad_TurmaProfessor() {
         initComponents();
+        validaturmaProf = new ControllerTurmaProf();
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+    
+    public void carregaTurma(){
+    
+        DAO.DaoTurma listaTurma = new DaoTurma();
+        ResultSet rs = listaTurma.listar();
+        
+        try{
+            while(rs.next()){
+                comboTurma.addItem(rs.getString(2));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void carregaProf(){
+    
+        DAO.DaoProfessor listaTurma = new DaoProfessor();
+        ResultSet rs = listaTurma.listar();
+        
+        try{
+            while(rs.next()){
+                comboProfessor.addItem(rs.getString(2));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void buscar(String cod, int FkTurmaProf, int FkProfTurma){
+        
+        comboTurma.setSelectedIndex(FkTurmaProf);
+        comboProfessor.setSelectedIndex(FkProfTurma);
+        txtID1.setText(cod);
     }
 
     /**
@@ -64,6 +110,11 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         txtID1.setEditable(false);
 
@@ -136,11 +187,25 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        int FkTurmaProf = comboTurma.getSelectedIndex();
+        int FkProfTurma = comboProfessor.getSelectedIndex();
+        String cod = txtID1.getText();
+        
+        validaturmaProf.alterar(FkTurmaProf, FkProfTurma, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        int FkTurmaProf = comboTurma.getSelectedIndex();
+        int FkProfTurma = comboProfessor.getSelectedIndex();
+        
+        validaturmaProf.verificar(FkTurmaProf, FkProfTurma);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

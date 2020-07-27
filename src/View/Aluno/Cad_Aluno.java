@@ -6,6 +6,7 @@
 package View.Aluno;
 import Controller.ControllerAluno;
 import DAO.DaoAluno;
+import DAO.DaoTurma;
 import View.Turma.Cad_Turma;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,8 +33,8 @@ public class Cad_Aluno extends javax.swing.JFrame {
     
     public void carregaTurma(){
     
-        DAO.DaoAluno listaAluno = new DaoAluno();
-        ResultSet rs = listaAluno.listar();
+        DAO.DaoTurma listaTurma = new DaoTurma();
+        ResultSet rs = listaTurma.listar();
         
         try{
             while(rs.next()){
@@ -44,13 +45,16 @@ public class Cad_Aluno extends javax.swing.JFrame {
         }
     }
     
-    public void buscar(String cod, String nome, String matricula, String dt_nasc, String cpf, String rg, String telefone, int FkTruma){
+    public void buscar(String cod, String nome, String matricula, String dt_nasc, String cpf, String rg, String telefone, int FkTurma){
         
         txtID.setText(cod);
         txtNomeAluno.setText(nome);
         txtMatricula.setText(matricula);
         txtDataNascimento.setText(dt_nasc);
-        txtNomeAluno.setText();
+        txtCpf.setText(cpf);
+        txtRg.setText(rg);
+        txtTelefone.setText(telefone);
+        comboTurma.setSelectedIndex(FkTurma);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -254,7 +258,16 @@ public class Cad_Aluno extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        String nome = txtNomeAluno.getText();
+        String matricula = txtMatricula.getText();
+        String dt_nasc = txtDataNascimento.getText();
+        String cpf = txtCpf.getText();
+        String rg = txtRg.getText();
+        String telefone = txtTelefone.getText();
+        int FkTurma = comboTurma.getSelectedIndex();
+        String cod = txtID.getText();
         
+        validaAluno.alterar(nome, matricula, dt_nasc, cpf, rg, telefone, FkTurma, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
