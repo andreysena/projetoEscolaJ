@@ -38,7 +38,9 @@ public class DaoProfessor {
     
     public ResultSet listar(){
     
-        String sql = "select * from professor where status = 'D'";
+        String sql = "select p.ID_Professor, p.numero_aulas, f.nome_funcionario  from professor p\n" +
+"	join funcionario f on ID_Funcionario = FK_Func_Prof\n" +
+"		where p.status = 'D' order by p.ID_Professor";
         ResultSet rs;
         
         try{
