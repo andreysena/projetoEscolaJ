@@ -33,24 +33,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="205" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jComboBox1" pref="98" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txtNumeroAulas" min="-2" pref="130" max="-2" attributes="0"/>
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="222" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -61,14 +43,27 @@
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btnCancelarTurma1" min="-2" pref="113" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="184" max="32767" attributes="0"/>
+              <Component id="btnCancelar" min="-2" pref="113" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="btnAlterar" min="-2" pref="113" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="btnSalvarTurma" min="-2" pref="113" max="-2" attributes="0"/>
+              <Component id="btnSalvar" min="-2" pref="113" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="337" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
+                      <Component id="comboFuncionario" min="-2" pref="146" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -77,20 +72,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="comboFuncionario" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="86" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtNumeroAulas" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="79" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSalvarTurma" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnCancelarTurma1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -108,14 +97,6 @@
         <Property name="text" type="java.lang.String" value="Cadastro de Coordenador"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Verdana" size="12" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Insira o n&#xba; de aulas:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -124,16 +105,11 @@
         <Property name="text" type="java.lang.String" value="Funcion&#xe1;rio:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtNumeroAulas">
-    </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="comboFuncionario">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
+          <StringArray count="1">
+            <StringItem index="0" value="Selecione..."/>
           </StringArray>
         </Property>
       </Properties>
@@ -141,18 +117,21 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="btnCancelarTurma1">
+    <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarTurma1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnSalvarTurma">
+    <Component class="javax.swing.JButton" name="btnSalvar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salvar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtID1">
       <Properties>

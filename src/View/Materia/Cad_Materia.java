@@ -4,20 +4,32 @@
  * and open the template in the editor.
  */
 package View.Materia;
-
+import Controller.ControllerMateria;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Natan G. de Abreu
  */
 public class Cad_Materia extends javax.swing.JFrame {
 
+    private ControllerMateria validaMateria;
     /**
      * Creates new form Cad_Materia
      */
     public Cad_Materia() {
         initComponents();
+        validaMateria = new ControllerMateria();
     }
 
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+    
+    public void buscar(String cod, String nome_materia){
+        txtID1.setText(cod);
+        txtMateria.setText(nome_materia);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,13 +66,13 @@ public class Cad_Materia extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
-
-        txtID1.setEditable(false);
-        txtID1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
+
+        txtID1.setEditable(false);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -120,15 +132,23 @@ public class Cad_Materia extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void txtID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID1ActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        String nome_materia = txtMateria.getText();
+        String cod = txtID1.getText();
+        
+        validaMateria.alterar(nome_materia, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        String nome_materia = txtMateria.getText();
+        
+        validaMateria.verificar(nome_materia);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

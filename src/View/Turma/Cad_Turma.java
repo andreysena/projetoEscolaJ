@@ -4,18 +4,50 @@
  * and open the template in the editor.
  */
 package View.Turma;
+import Controller.ControllerTurma;
+import DAO.DaoCoordenador;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Natan G. de Abreu
  */
 public class Cad_Turma extends javax.swing.JFrame {
-
+    
+    private ControllerTurma validaTurma;
     /**
      * Creates new form Cad_Turma
      */
     public Cad_Turma() {
         initComponents();
+        validaTurma = new ControllerTurma(this);
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+    
+    public void carregaCoord(){
+        
+        DAO.DaoCoordenador listaCoord = new DaoCoordenador();
+        ResultSet rs = listaCoord.listar();
+        
+        try{
+            while(rs.next()){
+                comboCoordenador.addItem(rs.getString(2));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void buscar(String cod, String letra_turma, int FkFuncCoord){
+        txtID.setText(cod);
+        txtNomeTurma.setText(letra_turma);
+        comboCoordenador.setSelectedIndex(FkFuncCoord);
+
     }
 
     /**
@@ -30,16 +62,14 @@ public class Cad_Turma extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         txtID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        comboTurma = new javax.swing.JComboBox<>();
         comboCoordenador = new javax.swing.JComboBox<>();
         btnCancelarTurma = new javax.swing.JButton();
         btnSalvarTurma = new javax.swing.JButton();
-        comboProf = new javax.swing.JComboBox<>();
         txtID1 = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
+        txtNomeTurma = new javax.swing.JTextField();
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -55,16 +85,11 @@ public class Cad_Turma extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
         jLabel1.setText("Cadastro de Turma");
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel2.setText("Insira o Professor:");
-
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel3.setText("Indique a Turma:");
 
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel4.setText("Coordenador da Turma:");
-
-        comboTurma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
 
         comboCoordenador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
 
@@ -76,8 +101,6 @@ public class Cad_Turma extends javax.swing.JFrame {
         });
 
         btnSalvarTurma.setText("Salvar");
-
-        comboProf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
 
         txtID1.setEditable(false);
 
@@ -93,21 +116,20 @@ public class Cad_Turma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboProf, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(126, 126, 126)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(comboTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(txtNomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(comboCoordenador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)))
-                .addGap(92, 92, 92))
+                        .addGap(8, 8, 8)))
+                .addGap(121, 121, 121))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -120,7 +142,7 @@ public class Cad_Turma extends javax.swing.JFrame {
                         .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(btnSalvarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -133,13 +155,11 @@ public class Cad_Turma extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel3))
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboCoordenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(comboCoordenador)
+                    .addComponent(txtNomeTurma))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarTurma)
@@ -154,14 +174,25 @@ public class Cad_Turma extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCancelarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarTurmaActionPerformed
         // TODO add your handling code here:
+        String letra_turma = txtNomeTurma.getText();
+        int FkFuncCoord = comboCoordenador.getSelectedIndex();
+        
+        validaTurma.verificar(letra_turma, FkFuncCoord);
     }//GEN-LAST:event_btnCancelarTurmaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        String letra_turma = txtNomeTurma.getText();
+        int FkFuncCoord = comboCoordenador.getSelectedIndex();
+        String cod = txtID1.getText();
+        
+        validaTurma.alterar(letra_turma, FkFuncCoord, cod);
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
@@ -205,13 +236,11 @@ public class Cad_Turma extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelarTurma;
     private javax.swing.JButton btnSalvarTurma;
     private javax.swing.JComboBox<String> comboCoordenador;
-    private javax.swing.JComboBox<String> comboProf;
-    private javax.swing.JComboBox<String> comboTurma;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtID1;
+    private javax.swing.JTextField txtNomeTurma;
     // End of variables declaration//GEN-END:variables
 }

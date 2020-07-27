@@ -4,20 +4,51 @@
  * and open the template in the editor.
  */
 package View.Professor;
-
+import Controller.ControllerProfessor;
+import DAO.DaoCoordenador;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Natan G. de Abreu
  */
 public class Cad_Professor extends javax.swing.JFrame {
-
+    
+    private ControllerProfessor validaProf;
     /**
      * Creates new form Cad_Professor
      */
     public Cad_Professor() {
         initComponents();
+        validaProf = new ControllerProfessor(this);
+        carregaFunc();
     }
 
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+    
+    public void carregaFunc(){
+        
+        DAO.DaoCoordenador listaCoord = new DaoCoordenador();
+        ResultSet rs = listaCoord.listar();
+        
+        try{
+            while(rs.next()){
+                comboFuncionario.addItem(rs.getString(3));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void buscar(String cod, String numero_aulas, int FkFuncProf){
+        txtID1.setText(cod);
+        txtNumeroAulas.setText(numero_aulas);
+        comboFuncionario.setSelectedIndex(FkFuncProf);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +89,11 @@ public class Cad_Professor extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         txtID1.setEditable(false);
 
@@ -130,11 +166,25 @@ public class Cad_Professor extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        String numero_aulas = txtNumeroAulas.getText();
+        int FkFuncProf = comboFuncionario.getSelectedIndex();
+        String cod = txtID1.getText();
+        
+        validaProf.alterar(numero_aulas, FkFuncProf, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        String numero_aulas = txtNumeroAulas.getText();
+        int FkFuncProf = comboFuncionario.getSelectedIndex();
+        
+        validaProf.verificar(numero_aulas, FkFuncProf);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

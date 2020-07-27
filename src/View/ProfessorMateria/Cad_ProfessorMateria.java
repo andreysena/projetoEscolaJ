@@ -4,20 +4,67 @@
  * and open the template in the editor.
  */
 package View.ProfessorMateria;
-
+import Controller.ControllerProfMateria;
+import DAO.DaoProfessor;
+import DAO.DaoTurma;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Natan G. de Abreu
  */
 public class Cad_ProfessorMateria extends javax.swing.JFrame {
-
+    
+    private ControllerProfMateria validaProfMateria;
+    
     /**
      * Creates new form Cad_ProfessorMateria
      */
     public Cad_ProfessorMateria() {
         initComponents();
+        validaProfMateria = new ControllerProfMateria();
     }
 
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+    
+    public void carregaMateria(){
+    
+        DAO.DaoTurma listaTurma = new DaoTurma();
+        ResultSet rs = listaTurma.listar();
+        
+        try{
+            while(rs.next()){
+                comboMateria.addItem(rs.getString(2));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void carregaProf(){
+    
+        DAO.DaoProfessor listaTurma = new DaoProfessor();
+        ResultSet rs = listaTurma.listar();
+        
+        try{
+            while(rs.next()){
+                comboProfessor.addItem(rs.getString(2));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void buscar(String cod, int FkProfMat, int FkMateria){
+        
+        txtID.setText(cod);
+        comboProfessor.setSelectedIndex(FkProfMat);
+        comboMateria.setSelectedIndex(FkMateria);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +81,7 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
-        txtID1 = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -60,13 +107,13 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
-
-        txtID1.setEditable(false);
-        txtID1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
+
+        txtID.setEditable(false);
 
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +127,7 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(175, Short.MAX_VALUE)
@@ -128,7 +175,7 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
                     .addComponent(btnSalvar)
                     .addComponent(btnAlterar))
                 .addGap(45, 45, 45)
-                .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -136,15 +183,25 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void txtID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtID1ActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        int FkProfMat = comboProfessor.getSelectedIndex();
+        int FkMateria = comboMateria.getSelectedIndex();
+        String cod = txtID.getText();
+        
+        validaProfMateria.alterar(FkProfMat, FkMateria, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        int FkProfMat = comboProfessor.getSelectedIndex();
+        int FkMateria = comboMateria.getSelectedIndex();
+        
+        validaProfMateria.verificar(FkProfMat, FkMateria);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,6 +247,6 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtID1;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
 }

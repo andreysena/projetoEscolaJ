@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package View.Funcionario;
+import Controller.ControllerFuncionario;
+import DAO.DaoFuncionario;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,13 +16,30 @@ package View.Funcionario;
  */
 public class Cad_Funcionario extends javax.swing.JFrame {
 
+    private ControllerFuncionario validaFunc;
     /**
      * Creates new form Cad_Funcionario
      */
     public Cad_Funcionario() {
         initComponents();
+        validaFunc = new ControllerFuncionario();
     }
-
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+  
+    public void buscar(String cod, String nome, String dt_nasc, String cpf, String rg, String telefone, String salario){
+        
+        txtID.setText(cod);
+        txtNomeFuncionario.setText(nome);
+        txtDataNascimento.setText(dt_nasc);
+        txtCpfFunc.setText(cpf);
+        txtRgFunc.setText(rg);
+        txtTelefoneFunc.setText(telefone);
+        txtSalario.setText(salario); 
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,6 +98,11 @@ public class Cad_Funcionario extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         txtID.setEditable(false);
 
@@ -93,11 +120,11 @@ public class Cad_Funcionario extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(125, 125, 125)
                 .addComponent(jLabel5)
-                .addGap(212, 212, 212)
+                .addGap(174, 174, 174)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addGap(100, 100, 100))
+                .addGap(108, 108, 108))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -178,11 +205,33 @@ public class Cad_Funcionario extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        String nome = txtNomeFuncionario.getText();
+        String dt_nasc = txtDataNascimento.getText();
+        String cpf = txtCpfFunc.getText();
+        String rg = txtRgFunc.getText();
+        String telefone = txtTelefoneFunc.getText();
+        String salario = txtSalario.getText();
+        String cod = txtID.getText();
+        
+        validaFunc.alterar(nome, dt_nasc, cpf, rg, telefone, salario, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        String nome = txtNomeFuncionario.getText();
+        String dt_nasc = txtDataNascimento.getText();
+        String cpf = txtCpfFunc.getText();
+        String rg = txtRgFunc.getText();
+        String telefone = txtTelefoneFunc.getText();
+        String salario = txtSalario.getText();
+        
+        validaFunc.verificar(nome, dt_nasc, cpf, rg, telefone, salario);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

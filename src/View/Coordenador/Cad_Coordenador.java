@@ -4,18 +4,49 @@
  * and open the template in the editor.
  */
 package View.Coordenador;
-
+import Controller.ControllerCoordenador;
+import DAO.DaoCoordenador;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Natan G. de Abreu
  */
 public class Cad_Coordenador extends javax.swing.JFrame {
 
+    private ControllerCoordenador validaCoord;
+            
     /**
      * Creates new form Cad_Coordenador
      */
     public Cad_Coordenador() {
         initComponents();
+        validaCoord = new ControllerCoordenador();
+        carregaFunc();
+    }
+    
+    public void exibeMensagem(String msg){
+        JOptionPane.showMessageDialog(rootPane, msg);
+    }
+    
+    public void carregaFunc(){
+        
+        DAO.DaoCoordenador listaCoord = new DaoCoordenador();
+        ResultSet rs = listaCoord.listar();
+        
+        try{
+            while(rs.next()){
+                comboFuncionario.addItem(rs.getString(2));
+            }
+        }catch(SQLException error){
+            throw new RuntimeException(error);
+        }
+    }
+    
+    public void buscar(String cod, int FkFuncCoord){
+        txtID1.setText(cod);
+        comboFuncionario.setSelectedIndex(FkFuncCoord);
     }
 
     /**
@@ -29,12 +60,10 @@ public class Cad_Coordenador extends javax.swing.JFrame {
 
         btnCancelarTurma = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNumeroAulas = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        btnCancelarTurma1 = new javax.swing.JButton();
-        btnSalvarTurma = new javax.swing.JButton();
+        comboFuncionario = new javax.swing.JComboBox<>();
+        btnCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         txtID1 = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
 
@@ -50,22 +79,24 @@ public class Cad_Coordenador extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
         jLabel1.setText("Cadastro de Coordenador");
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        jLabel2.setText("Insira o nº de aulas:");
-
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel3.setText("Funcionário:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione..." }));
 
-        btnCancelarTurma1.setText("Cancelar");
-        btnCancelarTurma1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarTurma1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        btnSalvarTurma.setText("Salvar");
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         txtID1.setEditable(false);
         txtID1.setOpaque(false);
@@ -81,19 +112,6 @@ public class Cad_Coordenador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(143, 143, 143))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBox1, 0, 98, Short.MAX_VALUE)
-                        .addGap(133, 133, 133)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNumeroAulas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(222, 222, 222))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -101,32 +119,37 @@ public class Cad_Coordenador extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCancelarTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 184, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(btnSalvarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(211, 211, 211))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(337, 337, 337)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(307, 307, 307)
+                        .addComponent(comboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(comboFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumeroAulas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvarTurma)
-                    .addComponent(btnCancelarTurma1)
+                    .addComponent(btnSalvar)
+                    .addComponent(btnCancelar)
                     .addComponent(btnAlterar))
                 .addGap(36, 36, 36)
                 .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -137,15 +160,28 @@ public class Cad_Coordenador extends javax.swing.JFrame {
 
     private void btnCancelarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarTurmaActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnCancelarTurmaActionPerformed
 
-    private void btnCancelarTurma1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarTurma1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCancelarTurma1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        int FkFuncCoord = comboFuncionario.getSelectedIndex();
+        String cod = txtID1.getText();
+        
+        validaCoord.alterar(FkFuncCoord, cod);
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        int FkFuncCoord = comboFuncionario.getSelectedIndex();
+        
+        validaCoord.verificar(FkFuncCoord);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,14 +220,12 @@ public class Cad_Coordenador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelarTurma;
-    private javax.swing.JButton btnCancelarTurma1;
-    private javax.swing.JButton btnSalvarTurma;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox<String> comboFuncionario;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtID1;
-    private javax.swing.JTextField txtNumeroAulas;
     // End of variables declaration//GEN-END:variables
 }
