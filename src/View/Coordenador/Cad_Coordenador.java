@@ -22,7 +22,7 @@ public class Cad_Coordenador extends javax.swing.JFrame {
      */
     public Cad_Coordenador() {
         initComponents();
-        validaCoord = new ControllerCoordenador();
+        validaCoord = new ControllerCoordenador(this);
         carregaFunc();
     }
     

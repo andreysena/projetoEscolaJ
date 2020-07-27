@@ -5,6 +5,12 @@
  */
 package View.Professor;
 
+import DAO.DaoProfessor;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Natan G. de Abreu
@@ -16,6 +22,28 @@ public class List_Professor extends javax.swing.JFrame {
      */
     public List_Professor() {
         initComponents();
+        carregarLista();
+    }
+    
+    public void carregarLista(){
+        DefaultTableModel modelo = (DefaultTableModel) jTableProfessor.getModel();        
+        modelo.setNumRows(0);
+        
+        DAO.DaoProfessor itensProf = new DaoProfessor();
+        ResultSet rs = itensProf.listar();
+        
+        try{
+            while(rs.next()){
+                modelo.addRow(new Object[]{
+                   rs.getString(1),
+                   rs.getString(2),
+                   rs.getString(3)
+                });
+            }
+            
+        }catch(SQLException msg){
+            throw new RuntimeException(msg);
+        }
     }
 
     /**
@@ -59,12 +87,27 @@ public class List_Professor extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnExcluir.setText("Excluir Professor");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAlterar.setText("Alterar Professor");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +146,53 @@ public class List_Professor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?");
+        
+        if(sair == 0){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        if(jTableProfessor.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+            
+        }else{
+            int linha = jTableProfessor.getSelectedRow();
+            int id = Integer.parseInt((String) jTableProfessor.getValueAt(linha, 0));
+            
+            DaoProfessor delete = new DaoProfessor();
+            delete.excluir(id);
+            
+            JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+            
+            carregarLista();
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if(jTableProfessor.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+        }else{
+            String cod, numero_aulas;
+            int FkFuncProf;
+            
+            int linha = jTableProfessor.getSelectedRow();
+            cod = (String) jTableProfessor.getValueAt(linha, 0);
+            numero_aulas = (String) jTableProfessor.getValueAt(linha, 1);
+            FkFuncProf = Integer.parseInt((String) jTableProfessor.getValueAt(linha, 2));
+            
+            
+            Cad_Professor alterar = new Cad_Professor();
+            alterar.buscar(cod, numero_aulas, FkFuncProf);
+            alterar.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments

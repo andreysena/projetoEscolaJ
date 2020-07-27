@@ -5,6 +5,12 @@
  */
 package View.Turma;
 
+import DAO.DaoTurma;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Natan G. de Abreu
@@ -16,6 +22,28 @@ public class List_Turma extends javax.swing.JFrame {
      */
     public List_Turma() {
         initComponents();
+        carregarLista();
+    }
+    
+    public void carregarLista(){
+        DefaultTableModel modelo = (DefaultTableModel) jTableTurma.getModel();        
+        modelo.setNumRows(0);
+        
+        DAO.DaoTurma itensTurma = new DaoTurma();
+        ResultSet rs = itensTurma.listar();
+        
+        try{
+            while(rs.next()){
+                modelo.addRow(new Object[]{
+                   rs.getString(1),
+                   rs.getString(2),
+                   rs.getString(3)
+                });
+            }
+            
+        }catch(SQLException msg){
+            throw new RuntimeException(msg);
+        }
     }
 
     /**
@@ -59,12 +87,27 @@ public class List_Turma extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnExcluir.setText("Excluir Turma");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAlterar.setText("Alterar Turma");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,6 +147,53 @@ public class List_Turma extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?");
+        
+        if(sair == 0){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        if(jTableTurma.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+            
+        }else{
+            int linha = jTableTurma.getSelectedRow();
+            int id = Integer.parseInt((String) jTableTurma.getValueAt(linha, 0));
+            
+            DaoTurma delete = new DaoTurma();
+            delete.excluir(id);
+            
+            JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+            
+            carregarLista();
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if(jTableTurma.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+        }else{
+            String cod, letra_turma;
+            int FkCoord;
+            
+            int linha = jTableTurma.getSelectedRow();
+            cod = (String) jTableTurma.getValueAt(linha, 0);
+            letra_turma = (String) jTableTurma.getValueAt(linha, 1);
+            FkCoord = Integer.parseInt((String) jTableTurma.getValueAt(linha, 2));
+            
+            
+            Cad_Turma alterar = new Cad_Turma();
+            alterar.buscar(cod, letra_turma, FkCoord);
+            alterar.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments

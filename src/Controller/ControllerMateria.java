@@ -5,10 +5,51 @@
  */
 package Controller;
 
+import DAO.DaoMateria;
+import Model.Materia;
+import View.Materia.Cad_Materia;
+
 /**
  *
  * @author andrey
  */
 public class ControllerMateria {
+
+    private final Cad_Materia vCadMat;
+    DaoMateria daoMat = new DaoMateria();
+
+    public ControllerMateria(Cad_Materia vCad_Mat) {
+        
+        this.vCadMat = vCad_Mat;
+    }
     
+    public void verificar(String nome_materia){
+        if(nome_materia.equals("") ) {
+            vCadMat.exibeMensagem("Preencha todos os campos para realizar o cadastro!");
+    	}else{
+           Model.Materia mat = new Materia(nome_materia);
+            
+           //String id = cod;
+            
+           daoMat.adicionar(mat);
+            
+           vCadMat.exibeMensagem("Aluno cadastrado com sucesso!");
+           vCadMat.dispose(); 
+        }
+    }
+    public void alterar(String nome_materia, String cod){
+	if(nome_materia.equals("")) {
+            
+            vCadMat.exibeMensagem("Preencha todos os campos para realizar a alteração!");
+    	}else{
+           Model.Materia mat = new Materia(nome_materia);
+           String id = cod;          
+  
+           daoMat.alterar(mat, cod);
+            
+           vCadMat.exibeMensagem("Aluno alterado com sucesso!");
+           vCadMat.dispose(); 
+        }
+	
+    }
 }
