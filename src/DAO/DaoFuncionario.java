@@ -30,7 +30,7 @@ public class DaoFuncionario {
             stmt.setString(3, funcionario.getCpf());
             stmt.setString(4, funcionario.getRg());
             stmt.setString(5, funcionario.getTelefone());
-            stmt.setDouble(6, funcionario.getSalario());
+            stmt.setDouble(6, Double.parseDouble(funcionario.getSalario()));
             
             
             stmt.execute();
@@ -65,7 +65,7 @@ public class DaoFuncionario {
             stmt.setString(3, funcionario.getCpf());
             stmt.setString(4, funcionario.getRg());
             stmt.setString(5, funcionario.getTelefone());
-            stmt.setDouble(6, funcionario.getSalario());
+            stmt.setDouble(6, Double.parseDouble(funcionario.getSalario()));
             stmt.setInt(7, Integer.parseInt(id));
             
             stmt.execute();
