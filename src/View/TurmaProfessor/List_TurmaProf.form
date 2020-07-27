@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -31,6 +31,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="20" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="852" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="btnAlterar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -38,7 +39,6 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnSair" min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="802" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
@@ -83,10 +83,12 @@
         <Component class="javax.swing.JTable" name="jTableTurmaProf">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="0">
+              <Table columnCount="5" rowCount="0">
                 <Column editable="false" title="ID_TurmaProf" type="java.lang.Object"/>
                 <Column editable="false" title="Professor" type="java.lang.Object"/>
+                <Column editable="false" title="ID_Professor" type="java.lang.Object"/>
                 <Column editable="false" title="Turma" type="java.lang.Object"/>
+                <Column editable="false" title="ID_Turma" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -101,7 +103,17 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="25" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="25" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>

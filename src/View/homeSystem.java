@@ -5,6 +5,24 @@
  */
 package View;
 
+import View.Aluno.Cad_Aluno;
+import View.Aluno.List_Aluno;
+import View.Coordenador.Cad_Coordenador;
+import View.Coordenador.List_Coordenador;
+import View.Funcionario.Cad_Funcionario;
+import View.Funcionario.List_Funcionario;
+import View.Materia.Cad_Materia;
+import View.Materia.List_Materia;
+import View.Professor.Cad_Professor;
+import View.Professor.List_Professor;
+import View.ProfessorMateria.Cad_ProfessorMateria;
+import View.ProfessorMateria.List_ProfMateria;
+import View.Turma.Cad_Turma;
+import View.Turma.List_Turma;
+import View.TurmaProfessor.Cad_TurmaProfessor;
+import View.TurmaProfessor.List_TurmaProf;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Natan G. de Abreu
@@ -38,23 +56,28 @@ public class homeSystem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
-        jLabel1.setText("Escola Técnica Philos Python");
+        jLabel1.setText("Escola Técnica Philos Java");
 
         jLabel2.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
         jLabel2.setText("Seja bem-vindo ao sistema da");
 
-        comboCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno" }));
+        comboCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno", "Vínculo Professor Matéria", "Vínculo Turma Professor" }));
         comboCad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCadActionPerformed(evt);
             }
         });
 
-        comboLAD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Listar | Alterar | Deletar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno" }));
+        comboLAD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Listar | Alterar | Deletar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno", "Vínculo Professor Matéria", "Vínculo Turma Professor" }));
+        comboLAD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboLADActionPerformed(evt);
+            }
+        });
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
-        jTextPane1.setText("Além do ensino comum, oferecemos um ensino mais aprofundado em Filosofia, voltados para reflexões existenciais, ao conhecimento e a verdade. E também, o ensino avançado na área exata que é a programação, visando o desenvolvimento de sistemas fullstack em Python.");
+        jTextPane1.setText("Além do ensino comum, oferecemos um ensino mais aprofundado em Filosofia, voltados para reflexões existenciais, ao conhecimento e a verdade. E também, o ensino avançado na área exata que é a programação, visando o desenvolvimento de sistemas fullstack em Java.");
         jScrollPane1.setViewportView(jTextPane1);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 3, 14)); // NOI18N
@@ -68,12 +91,9 @@ public class homeSystem extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(204, 204, 204)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboCad, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboLAD, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(comboCad, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboLAD, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(293, 293, 293)
                         .addComponent(jLabel2))
@@ -82,7 +102,10 @@ public class homeSystem extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(298, 298, 298)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(jLabel1)))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,8 +133,107 @@ public class homeSystem extends javax.swing.JFrame {
         // TODO add your handling code here:
         int selected = comboCad.getSelectedIndex();
         
-        switch 
+        switch(selected){
+            case 1:
+                Cad_Funcionario telaFunc = new Cad_Funcionario();
+                telaFunc.habSalvar();
+                telaFunc.setVisible(true);
+                break;
+                
+            case 2:
+                Cad_Professor telaProf = new Cad_Professor();
+                telaProf.habSalvar();
+                telaProf.setVisible(true);
+                break;
+                
+            case 3:
+                Cad_Coordenador telaCoord = new Cad_Coordenador();
+                telaCoord.habSalvar();
+                telaCoord.setVisible(true);
+                break;
+                
+            case 4:
+                Cad_Materia telaMat = new Cad_Materia();
+                telaMat.habSalvar();
+                telaMat.setVisible(true);
+                break;
+                
+            case 5:
+                Cad_Turma telaTurma = new Cad_Turma();
+                telaTurma.habSalvar();
+                telaTurma.setVisible(true);
+                break;
+                
+            case 6:
+                Cad_Aluno telaAluno = new Cad_Aluno();
+                telaAluno.habSalvar();
+                telaAluno.setVisible(true);
+                break;
+                
+            case 7:
+                Cad_ProfessorMateria telaProfMat = new Cad_ProfessorMateria();
+                telaProfMat.habSalvar();
+                telaProfMat.setVisible(true);
+                break;
+                
+            case 8:
+                Cad_TurmaProfessor telaTurmaProf = new Cad_TurmaProfessor();
+                telaTurmaProf.habSalvar();
+                telaTurmaProf.setVisible(true);
+                break;
+            default:
+                JOptionPane.showMessageDialog(rootPane, "Opção Inválida!");
+        }
     }//GEN-LAST:event_comboCadActionPerformed
+
+    private void comboLADActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLADActionPerformed
+        // TODO add your handling code here:
+        int selected = comboLAD.getSelectedIndex();
+        
+        switch(selected){
+            case 1:
+                List_Funcionario telaFunc = new List_Funcionario();
+                telaFunc.setVisible(true);
+                break;
+                
+            case 2:
+                List_Professor telaProf = new List_Professor();
+                telaProf.setVisible(true);
+                break;
+                
+            case 3:
+                List_Coordenador telaCoord = new List_Coordenador();
+                telaCoord.setVisible(true);
+                break;
+                
+            case 4:
+                List_Materia telaMat = new List_Materia();
+                telaMat.setVisible(true);
+                break;
+                
+            case 5:
+                List_Turma telaTurma = new List_Turma();
+                telaTurma.setVisible(true);
+                break;
+                
+            case 6:
+                List_Aluno telaAluno = new List_Aluno();
+                telaAluno.setVisible(true);
+                break;
+                
+            case 7:
+                List_ProfMateria telaProfMat = new List_ProfMateria();
+                telaProfMat.setVisible(true);
+                break;
+                
+            case 8:
+                List_TurmaProf telaTurmaProf = new List_TurmaProf();
+                telaTurmaProf.setVisible(true);
+                break;
+            default:
+                JOptionPane.showMessageDialog(rootPane, "Opção Inválida!");
+        }
+    }//GEN-LAST:event_comboLADActionPerformed
 
     /**
      * @param args the command line arguments

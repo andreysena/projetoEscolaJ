@@ -8,6 +8,7 @@ package Controller;
 import DAO.DaoTurma;
 import Model.Turma;
 import View.Turma.Cad_Turma;
+import View.Turma.List_Turma;
 
 /**
  *
@@ -46,7 +47,9 @@ public class ControllerTurma {
            String id = cod;          
   
            daoTurma.alterar(turma, cod);
-            
+           
+           List_Turma listTurma = new List_Turma();
+           listTurma.carregarLista();
            vCadTurma.exibeMensagem("Turma alterada com sucesso!");
            vCadTurma.dispose(); 
         }

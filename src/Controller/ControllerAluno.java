@@ -8,6 +8,7 @@ package Controller;
 import DAO.DaoAluno;
 import Model.Aluno;
 import View.Aluno.Cad_Aluno;
+import View.Aluno.List_Aluno;
 
 /**
  *
@@ -47,7 +48,9 @@ public class ControllerAluno {
            String id = cod;          
   
            daoAluno.alterar(aluno, cod);
-            
+           
+           List_Aluno listaAluno = new List_Aluno();
+           listaAluno.carregarLista();
            vCadAluno.exibeMensagem("Aluno alterado com sucesso!");
            vCadAluno.dispose(); 
         }

@@ -204,8 +204,8 @@ public class List_Funcionario extends javax.swing.JFrame {
             
             Cad_Funcionario alterar = new Cad_Funcionario();
             alterar.buscar(cod, nome, dt_nasc, cpf, rg, telefone, salario);
+            alterar.habAlterar();
             alterar.setVisible(true);
-            carregarLista();
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 

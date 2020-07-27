@@ -8,6 +8,8 @@ package Controller;
 import DAO.DaoProfessor;
 import Model.Professor;
 import View.Professor.Cad_Professor;
+import View.Professor.List_Professor;
+import org.w3c.dom.ls.LSInput;
 
 /**
  *
@@ -32,7 +34,7 @@ public class ControllerProfessor {
             
            daoProf.adicionar(prof);
             
-           vCadProf.exibeMensagem("Aluno cadastrado com sucesso!");
+           vCadProf.exibeMensagem("Professor cadastrado com sucesso!");
            vCadProf.dispose(); 
         }
     }
@@ -46,7 +48,9 @@ public class ControllerProfessor {
   
            daoProf.alterar(prof, cod);
             
-           vCadProf.exibeMensagem("Aluno alterado com sucesso!");
+           List_Professor listProf = new List_Professor();
+           listProf.carregarLista();
+           vCadProf.exibeMensagem("Professor alterado com sucesso!");
            vCadProf.dispose(); 
         }
 	

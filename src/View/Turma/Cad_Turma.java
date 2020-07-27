@@ -49,6 +49,14 @@ public class Cad_Turma extends javax.swing.JFrame {
         comboCoordenador.setSelectedIndex(FkFuncCoord);
 
     }
+    
+    public void habAlterar(){
+        btnSalvar.disable();
+    }
+    
+    public void habSalvar(){
+        btnAlterar.disable();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,7 +74,7 @@ public class Cad_Turma extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         comboCoordenador = new javax.swing.JComboBox<>();
         btnCancelarTurma = new javax.swing.JButton();
-        btnSalvarTurma = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         txtID1 = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
         txtNomeTurma = new javax.swing.JTextField();
@@ -80,7 +88,7 @@ public class Cad_Turma extends javax.swing.JFrame {
 
         txtID.setText("Insira o ID...");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
         jLabel1.setText("Cadastro de Turma");
@@ -100,11 +108,13 @@ public class Cad_Turma extends javax.swing.JFrame {
             }
         });
 
-        btnSalvarTurma.setText("Salvar");
+        btnSalvar.setText("Salvar");
+        btnSalvar.setRolloverEnabled(false);
 
         txtID1.setEditable(false);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.setRolloverEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -141,7 +151,7 @@ public class Cad_Turma extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(btnSalvarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(187, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,7 +173,7 @@ public class Cad_Turma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarTurma)
-                    .addComponent(btnSalvarTurma)
+                    .addComponent(btnSalvar)
                     .addComponent(btnAlterar))
                 .addGap(28, 28, 28)
                 .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -234,7 +244,7 @@ public class Cad_Turma extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelarTurma;
-    private javax.swing.JButton btnSalvarTurma;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> comboCoordenador;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

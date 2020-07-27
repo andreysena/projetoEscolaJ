@@ -61,7 +61,7 @@ public class List_Materia extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setText("Listagem de Matérias");
@@ -188,6 +188,7 @@ public class List_Materia extends javax.swing.JFrame {
             
             Cad_Materia alterar = new Cad_Materia();
             alterar.buscar(cod, nome_materia);
+            alterar.habAlterar();
             alterar.setVisible(true);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed

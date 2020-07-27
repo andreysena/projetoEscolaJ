@@ -62,7 +62,7 @@ public class List_Turma extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setText("Listagem de Turmas");
@@ -191,6 +191,7 @@ public class List_Turma extends javax.swing.JFrame {
             
             Cad_Turma alterar = new Cad_Turma();
             alterar.buscar(cod, letra_turma, FkCoord);
+            alterar.habAlterar();
             alterar.setVisible(true);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed

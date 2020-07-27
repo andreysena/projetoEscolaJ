@@ -5,6 +5,7 @@
  */
 package View.ProfessorMateria;
 import Controller.ControllerProfMateria;
+import DAO.DaoMateria;
 import DAO.DaoProfessor;
 import DAO.DaoTurma;
 import java.sql.ResultSet;
@@ -24,6 +25,8 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
     public Cad_ProfessorMateria() {
         initComponents();
         validaProfMateria = new ControllerProfMateria(this);
+        carregaMateria();
+        carregaProf();
     }
 
     public void exibeMensagem(String msg){
@@ -32,8 +35,8 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
     
     public void carregaMateria(){
     
-        DAO.DaoTurma listaTurma = new DaoTurma();
-        ResultSet rs = listaTurma.listar();
+        DAO.DaoMateria listaMat = new DaoMateria();
+        ResultSet rs = listaMat.listar();
         
         try{
             while(rs.next()){
@@ -46,12 +49,12 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
     
     public void carregaProf(){
     
-        DAO.DaoProfessor listaTurma = new DaoProfessor();
-        ResultSet rs = listaTurma.listar();
+        DAO.DaoProfessor listaProf = new DaoProfessor();
+        ResultSet rs = listaProf.listar();
         
         try{
             while(rs.next()){
-                comboProfessor.addItem(rs.getString(2));
+                comboProfessor.addItem(rs.getString(3));
             }
         }catch(SQLException error){
             throw new RuntimeException(error);
@@ -63,6 +66,14 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
         txtID.setText(cod);
         comboProfessor.setSelectedIndex(FkProfMat);
         comboMateria.setSelectedIndex(FkMateria);
+    }
+    
+    public void habAlterar(){
+        btnSalvar.disable();
+    }
+    
+    public void habSalvar(){
+        btnAlterar.disable();
     }
     
     /**
@@ -84,7 +95,7 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
         txtID = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
         jLabel1.setText("Cadastro Professor/Matéria");
@@ -107,6 +118,7 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setRolloverEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -116,6 +128,7 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
         txtID.setEditable(false);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.setRolloverEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
