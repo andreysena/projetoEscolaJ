@@ -22,7 +22,7 @@ public class Cad_Funcionario extends javax.swing.JFrame {
      */
     public Cad_Funcionario() {
         initComponents();
-        validaFunc = new ControllerFuncionario();
+        validaFunc = new ControllerFuncionario(this);
     }
     
     public void exibeMensagem(String msg){

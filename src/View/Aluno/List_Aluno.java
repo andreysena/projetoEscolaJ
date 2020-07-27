@@ -5,6 +5,12 @@
  */
 package View.Aluno;
 
+import DAO.DaoAluno;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Natan G. de Abreu
@@ -16,6 +22,33 @@ public class List_Aluno extends javax.swing.JFrame {
      */
     public List_Aluno() {
         initComponents();
+        carregarLista();
+    }
+    
+    public void carregarLista(){
+        DefaultTableModel modelo = (DefaultTableModel) jTableAluno.getModel();        
+        modelo.setNumRows(0);
+        
+        DAO.DaoAluno itensAluno = new DaoAluno();
+        ResultSet rs = itensAluno.listar();
+        
+        try{
+            while(rs.next()){
+                modelo.addRow(new Object[]{
+                   rs.getString(1),
+                   rs.getString(2),
+                   rs.getString(3),
+                   rs.getString(4),
+                   rs.getString(5),
+                   rs.getString(6),
+                   rs.getString(7),
+                   rs.getString(8)
+                });
+            }
+            
+        }catch(SQLException msg){
+            throw new RuntimeException(msg);
+        }
     }
 
     /**
@@ -63,6 +96,11 @@ public class List_Aluno extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnExcluir.setText("Excluir Aluno");
@@ -74,6 +112,11 @@ public class List_Aluno extends javax.swing.JFrame {
 
         btnAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAlterar.setText("Alterar Aluno");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,7 +160,56 @@ public class List_Aluno extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
+        if(jTableAluno.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+            
+        }else{
+            int linha = jTableAluno.getSelectedRow();
+            int id = Integer.parseInt((String) jTableAluno.getValueAt(linha, 0));
+            
+            DaoAluno delete = new DaoAluno();
+            delete.excluir(id);
+            
+            JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+            
+            carregarLista();
+        }
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?");
+        
+        if(sair == 0){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if(jTableAluno.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+        }else{
+            String cod, nome, matricula, dt_nasc, telefone, cpf, rg;
+            int FkTurma;
+            
+            int linha = jTableAluno.getSelectedRow();
+            cod = (String) jTableAluno.getValueAt(linha, 0);
+            nome = (String) jTableAluno.getValueAt(linha, 1);
+            matricula = (String) jTableAluno.getValueAt(linha, 2);
+            dt_nasc = (String) jTableAluno.getValueAt(linha, 3);
+            cpf = (String) jTableAluno.getValueAt(linha, 4);
+            rg = (String) jTableAluno.getValueAt(linha, 5);
+            telefone = (String) jTableAluno.getValueAt(linha, 6);
+            FkTurma = Integer.parseInt((String) jTableAluno.getValueAt(linha, 7));
+            
+            
+            Cad_Aluno alterar = new Cad_Aluno();
+            alterar.buscar(cod, nome, matricula, dt_nasc, cpf, rg, telefone, FkTurma);
+            alterar.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -23,7 +23,7 @@ public class Cad_ProfessorMateria extends javax.swing.JFrame {
      */
     public Cad_ProfessorMateria() {
         initComponents();
-        validaProfMateria = new ControllerProfMateria();
+        validaProfMateria = new ControllerProfMateria(this);
     }
 
     public void exibeMensagem(String msg){

@@ -5,6 +5,12 @@
  */
 package View.Materia;
 
+import DAO.DaoMateria;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Natan G. de Abreu
@@ -16,8 +22,29 @@ public class List_Materia extends javax.swing.JFrame {
      */
     public List_Materia() {
         initComponents();
+        carregarLista();
     }
 
+    public void carregarLista(){
+        DefaultTableModel modelo = (DefaultTableModel) jTableMateria.getModel();        
+        modelo.setNumRows(0);
+        
+        DAO.DaoMateria itensMateria = new DaoMateria();
+        ResultSet rs = itensMateria.listar();
+        
+        try{
+            while(rs.next()){
+                modelo.addRow(new Object[]{
+                   rs.getString(1),
+                   rs.getString(2)
+                });
+            }
+            
+        }catch(SQLException msg){
+            throw new RuntimeException(msg);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,12 +86,27 @@ public class List_Materia extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnExcluir.setText("Excluir Matéria");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAlterar.setText("Alterar Matéria");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,6 +146,51 @@ public class List_Materia extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?");
+        
+        if(sair == 0){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        if(jTableMateria.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+            
+        }else{
+            int linha = jTableMateria.getSelectedRow();
+            int id = Integer.parseInt((String) jTableMateria.getValueAt(linha, 0));
+            
+            DaoMateria delete = new DaoMateria();
+            delete.excluir(id);
+            
+            JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+            
+            carregarLista();
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if(jTableMateria.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+        }else{
+            String cod, nome_materia;
+            
+            int linha = jTableMateria.getSelectedRow();
+            cod = (String) jTableMateria.getValueAt(linha, 0);
+            nome_materia = (String) jTableMateria.getValueAt(linha, 1);
+            
+            
+            Cad_Materia alterar = new Cad_Materia();
+            alterar.buscar(cod, nome_materia);
+            alterar.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments

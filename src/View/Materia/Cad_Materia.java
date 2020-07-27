@@ -18,7 +18,7 @@ public class Cad_Materia extends javax.swing.JFrame {
      */
     public Cad_Materia() {
         initComponents();
-        validaMateria = new ControllerMateria();
+        validaMateria = new ControllerMateria(this);
     }
 
     public void exibeMensagem(String msg){

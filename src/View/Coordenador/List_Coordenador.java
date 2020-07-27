@@ -5,6 +5,12 @@
  */
 package View.Coordenador;
 
+import DAO.DaoCoordenador;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Natan G. de Abreu
@@ -16,6 +22,27 @@ public class List_Coordenador extends javax.swing.JFrame {
      */
     public List_Coordenador() {
         initComponents();
+        carregarLista();
+    }
+    
+    public void carregarLista(){
+        DefaultTableModel modelo = (DefaultTableModel) jTableCoord.getModel();        
+        modelo.setNumRows(0);
+        
+        DAO.DaoCoordenador itensCoord = new DaoCoordenador();
+        ResultSet rs = itensCoord.listar();
+        
+        try{
+            while(rs.next()){
+                modelo.addRow(new Object[]{
+                   rs.getString(1),
+                   rs.getString(2),
+                });
+            }
+            
+        }catch(SQLException msg){
+            throw new RuntimeException(msg);
+        }
     }
 
     /**
@@ -59,12 +86,27 @@ public class List_Coordenador extends javax.swing.JFrame {
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnExcluir.setText("Excluir Coordenador");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnAlterar.setText("Alterar Coordenador");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,6 +147,52 @@ public class List_Coordenador extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?");
+        
+        if(sair == 0){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        if(jTableCoord.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+            
+        }else{
+            int linha = jTableCoord.getSelectedRow();
+            int id = Integer.parseInt((String) jTableCoord.getValueAt(linha, 0));
+            
+            DaoCoordenador delete = new DaoCoordenador();
+            delete.excluir(id);
+            
+            JOptionPane.showMessageDialog(null, "Exclusão realizada com sucesso!");
+            
+            carregarLista();
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if(jTableCoord.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela");
+        }else{
+            String cod;
+            int FkFuncCoord;
+            
+            int linha = jTableCoord.getSelectedRow();
+            cod = (String) jTableCoord.getValueAt(linha, 0);
+            FkFuncCoord = Integer.parseInt((String) jTableCoord.getValueAt(linha, 1));
+         
+            Cad_Coordenador alterar = new Cad_Coordenador();
+            alterar.buscar(cod, FkFuncCoord);
+            alterar.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments

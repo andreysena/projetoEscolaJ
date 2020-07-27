@@ -29,8 +29,8 @@ public class homeSystem extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboCad = new javax.swing.JComboBox<>();
+        comboLAD = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
         jLabel3 = new javax.swing.JLabel();
@@ -43,14 +43,14 @@ public class homeSystem extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
         jLabel2.setText("Seja bem-vindo ao sistema da");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        comboCad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno" }));
+        comboCad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                comboCadActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Listar | Alterar | Deletar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno" }));
+        comboLAD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Listar | Alterar | Deletar", "Funcionário", "Professor", "Coordenador", "Matéria", "Turma", "Aluno" }));
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
@@ -71,9 +71,9 @@ public class homeSystem extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboCad, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(comboLAD, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(293, 293, 293)
                         .addComponent(jLabel2))
@@ -94,8 +94,8 @@ public class homeSystem extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboLAD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
@@ -106,9 +106,12 @@ public class homeSystem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void comboCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+        int selected = comboCad.getSelectedIndex();
+        
+        switch 
+    }//GEN-LAST:event_comboCadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,8 +149,8 @@ public class homeSystem extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> comboCad;
+    private javax.swing.JComboBox<String> comboLAD;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

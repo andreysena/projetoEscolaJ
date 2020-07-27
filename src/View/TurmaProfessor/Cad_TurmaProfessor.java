@@ -22,7 +22,7 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
      */
     public Cad_TurmaProfessor() {
         initComponents();
-        validaturmaProf = new ControllerTurmaProf();
+        validaturmaProf = new ControllerTurmaProf(this);
     }
     
     public void exibeMensagem(String msg){
