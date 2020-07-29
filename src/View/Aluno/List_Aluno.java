@@ -42,7 +42,8 @@ public class List_Aluno extends javax.swing.JFrame {
                    rs.getString(5),
                    rs.getString(6),
                    rs.getString(7),
-                   rs.getString(8)
+                   rs.getString(8),
+                   rs.getString(9)
                 });
             }
             
@@ -67,7 +68,14 @@ public class List_Aluno extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setText("Listagem de Alunos");
@@ -77,11 +85,11 @@ public class List_Aluno extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_Aluno", "Nome do Aluno", "Matrícula", "Data de Nascimento", "CPF", "RG", "Telefone", "Turma"
+                "ID_Aluno", "Nome do Aluno", "Matrícula", "Data de Nascimento", "CPF", "RG", "Telefone", "Turma", "ID_Turma"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -92,6 +100,7 @@ public class List_Aluno extends javax.swing.JFrame {
         if (jTableAluno.getColumnModel().getColumnCount() > 0) {
             jTableAluno.getColumnModel().getColumn(0).setPreferredWidth(20);
             jTableAluno.getColumnModel().getColumn(7).setPreferredWidth(25);
+            jTableAluno.getColumnModel().getColumn(8).setPreferredWidth(25);
         }
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -156,6 +165,7 @@ public class List_Aluno extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -202,14 +212,20 @@ public class List_Aluno extends javax.swing.JFrame {
             cpf = (String) jTableAluno.getValueAt(linha, 4);
             rg = (String) jTableAluno.getValueAt(linha, 5);
             telefone = (String) jTableAluno.getValueAt(linha, 6);
-            FkTurma = Integer.parseInt((String) jTableAluno.getValueAt(linha, 7));
+            FkTurma = Integer.parseInt((String) jTableAluno.getValueAt(linha, 8));
             
             
             Cad_Aluno alterar = new Cad_Aluno();
             alterar.buscar(cod, nome, matricula, dt_nasc, cpf, rg, telefone, FkTurma);
+            alterar.habAlterar();
             alterar.setVisible(true);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        carregarLista();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

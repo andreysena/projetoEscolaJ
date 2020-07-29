@@ -6,6 +6,7 @@
 package View.Professor;
 import Controller.ControllerProfessor;
 import DAO.DaoCoordenador;
+import DAO.DaoFuncionario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -31,12 +32,12 @@ public class Cad_Professor extends javax.swing.JFrame {
     
     public void carregaFunc(){
         
-        DAO.DaoCoordenador listaCoord = new DaoCoordenador();
-        ResultSet rs = listaCoord.listar();
+        DAO.DaoFuncionario listaFunc = new DaoFuncionario();
+        ResultSet rs = listaFunc.listar();
         
         try{
             while(rs.next()){
-                comboFuncionario.addItem(rs.getString(3));
+                comboFuncionario.addItem(rs.getString(2));
             }
         }catch(SQLException error){
             throw new RuntimeException(error);
@@ -47,6 +48,14 @@ public class Cad_Professor extends javax.swing.JFrame {
         txtID1.setText(cod);
         txtNumeroAulas.setText(numero_aulas);
         comboFuncionario.setSelectedIndex(FkFuncProf);
+    }
+    
+    public void habAlterar(){
+        btnSalvar.disable();
+    }
+    
+    public void habSalvar(){
+        btnAlterar.disable();
     }
     
     /**
@@ -68,7 +77,7 @@ public class Cad_Professor extends javax.swing.JFrame {
         txtID1 = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
         jLabel1.setText("Cadastro de Professor");
@@ -89,6 +98,7 @@ public class Cad_Professor extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setRolloverEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -98,6 +108,7 @@ public class Cad_Professor extends javax.swing.JFrame {
         txtID1.setEditable(false);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.setRolloverEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -162,6 +173,7 @@ public class Cad_Professor extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

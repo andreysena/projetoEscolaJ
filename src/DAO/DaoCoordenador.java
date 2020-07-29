@@ -35,9 +35,9 @@ public class DaoCoordenador {
     }
     
     public ResultSet listar(){
-        String sql = "select c.ID_Coordenador, f.nome_funcionario from coordenador c\n" +
-"	join funcionario f on ID_Funcionario = FK_Func_Cood\n" +
-"		where c.status = 'D' order by c.ID_Coordenador";
+        String sql = "select c.ID_Coordenador, f.nome_funcionario, f.ID_Funcionario from coordenador c\n" +
+                     "join funcionario f on ID_Funcionario = FK_Func_Coord\n" +
+                     "where c.status = 'D' order by c.ID_Coordenador";
         
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);

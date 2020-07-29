@@ -37,7 +37,8 @@ public class List_Professor extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{
                    rs.getString(1),
                    rs.getString(2),
-                   rs.getString(3)
+                   rs.getString(3),
+                   rs.getString(4)
                 });
             }
             
@@ -62,7 +63,14 @@ public class List_Professor extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setText("Listagem de Professores");
@@ -72,11 +80,11 @@ public class List_Professor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_Professor", "Número de Aulas", "Funcionário"
+                "ID_Professor", "Número de Aulas", "Funcionário", "ID_Funcionario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -84,6 +92,9 @@ public class List_Professor extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableProfessor);
+        if (jTableProfessor.getColumnModel().getColumnCount() > 0) {
+            jTableProfessor.getColumnModel().getColumn(3).setPreferredWidth(25);
+        }
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
@@ -145,6 +156,7 @@ public class List_Professor extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -185,14 +197,20 @@ public class List_Professor extends javax.swing.JFrame {
             int linha = jTableProfessor.getSelectedRow();
             cod = (String) jTableProfessor.getValueAt(linha, 0);
             numero_aulas = (String) jTableProfessor.getValueAt(linha, 1);
-            FkFuncProf = Integer.parseInt((String) jTableProfessor.getValueAt(linha, 2));
+            FkFuncProf = Integer.parseInt((String) jTableProfessor.getValueAt(linha, 3));
             
             
             Cad_Professor alterar = new Cad_Professor();
             alterar.buscar(cod, numero_aulas, FkFuncProf);
+            alterar.habAlterar();
             alterar.setVisible(true);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        carregarLista();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

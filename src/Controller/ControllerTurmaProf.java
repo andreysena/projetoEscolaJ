@@ -8,6 +8,7 @@ package Controller;
 import DAO.DaoTurmaProfessor;
 import Model.TurmaProfessor;
 import View.TurmaProfessor.Cad_TurmaProfessor;
+import View.TurmaProfessor.List_TurmaProf;
 
 /**
  *
@@ -33,7 +34,7 @@ public class ControllerTurmaProf {
             
            daoTurmaProf.adicionar(turmaProf);
             
-           vCadTurmaProf.exibeMensagem("Aluno cadastrado com sucesso!");
+           vCadTurmaProf.exibeMensagem("Vínculo cadastrado com sucesso!");
            vCadTurmaProf.dispose(); 
         }
     }
@@ -47,7 +48,7 @@ public class ControllerTurmaProf {
   
            daoTurmaProf.alterar(turmaProf, cod);
             
-           vCadTurmaProf.exibeMensagem("Aluno alterado com sucesso!");
+           vCadTurmaProf.exibeMensagem("Vínculo alterado com sucesso!");
            vCadTurmaProf.dispose(); 
         }
 	

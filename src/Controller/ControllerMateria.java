@@ -8,6 +8,7 @@ package Controller;
 import DAO.DaoMateria;
 import Model.Materia;
 import View.Materia.Cad_Materia;
+import View.Materia.List_Materia;
 
 /**
  *
@@ -33,7 +34,7 @@ public class ControllerMateria {
             
            daoMat.adicionar(mat);
             
-           vCadMat.exibeMensagem("Aluno cadastrado com sucesso!");
+           vCadMat.exibeMensagem("Matétia cadastrada com sucesso!");
            vCadMat.dispose(); 
         }
     }
@@ -47,7 +48,7 @@ public class ControllerMateria {
   
            daoMat.alterar(mat, cod);
             
-           vCadMat.exibeMensagem("Aluno alterado com sucesso!");
+           vCadMat.exibeMensagem("Matéria alterada com sucesso!");
            vCadMat.dispose(); 
         }
 	

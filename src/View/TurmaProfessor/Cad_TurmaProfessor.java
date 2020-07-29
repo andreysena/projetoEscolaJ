@@ -23,6 +23,8 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
     public Cad_TurmaProfessor() {
         initComponents();
         validaturmaProf = new ControllerTurmaProf(this);
+        carregaTurma();
+        carregaProf();
     }
     
     public void exibeMensagem(String msg){
@@ -50,7 +52,7 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         
         try{
             while(rs.next()){
-                comboProfessor.addItem(rs.getString(2));
+                comboProfessor.addItem(rs.getString(3));
             }
         }catch(SQLException error){
             throw new RuntimeException(error);
@@ -62,6 +64,14 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         comboTurma.setSelectedIndex(FkTurmaProf);
         comboProfessor.setSelectedIndex(FkProfTurma);
         txtID1.setText(cod);
+    }
+    
+    public void habAlterar(){
+        btnSalvar.disable();
+    }
+    
+    public void habSalvar(){
+        btnAlterar.disable();
     }
 
     /**
@@ -83,11 +93,12 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         txtID1 = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel2.setText("Professor:");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
         jLabel1.setText("Cadastro Turma/Professor");
@@ -110,6 +121,7 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setRolloverEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -119,9 +131,17 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         txtID1.setEditable(false);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.setRolloverEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
+            }
+        });
+
+        btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
             }
         });
 
@@ -154,7 +174,8 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
                         .addGap(158, 158, 158))))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +193,9 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,6 +206,7 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -206,6 +230,15 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
         
         validaturmaProf.verificar(FkTurmaProf, FkProfTurma);
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        int sair = JOptionPane.showConfirmDialog(null, "Deseja realmente sair?");
+        
+        if(sair == 0){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,6 +278,7 @@ public class Cad_TurmaProfessor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> comboProfessor;
     private javax.swing.JComboBox<String> comboTurma;

@@ -8,6 +8,7 @@ package Controller;
 import DAO.DaoFuncionario;
 import Model.Funcionario;
 import View.Funcionario.Cad_Funcionario;
+import View.Funcionario.List_Funcionario;
 
 /**
  *
@@ -33,7 +34,7 @@ public class ControllerFuncionario {
             
            daoFunc.adicionar(func);
             
-           vCadFunc.exibeMensagem("Aluno cadastrado com sucesso!");
+           vCadFunc.exibeMensagem("Funcionário cadastrado com sucesso!");
            vCadFunc.dispose(); 
         }
     }
@@ -47,7 +48,7 @@ public class ControllerFuncionario {
   
            daoFunc.alterar(func, cod);
             
-           vCadFunc.exibeMensagem("Aluno alterado com sucesso!");
+           vCadFunc.exibeMensagem("Funcionário alterado com sucesso!");
            vCadFunc.dispose(); 
         }
 	

@@ -6,6 +6,7 @@
 package View.Coordenador;
 import Controller.ControllerCoordenador;
 import DAO.DaoCoordenador;
+import DAO.DaoFuncionario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -32,8 +33,8 @@ public class Cad_Coordenador extends javax.swing.JFrame {
     
     public void carregaFunc(){
         
-        DAO.DaoCoordenador listaCoord = new DaoCoordenador();
-        ResultSet rs = listaCoord.listar();
+        DAO.DaoFuncionario listaFunc = new DaoFuncionario();
+        ResultSet rs = listaFunc.listar();
         
         try{
             while(rs.next()){
@@ -47,6 +48,14 @@ public class Cad_Coordenador extends javax.swing.JFrame {
     public void buscar(String cod, int FkFuncCoord){
         txtID1.setText(cod);
         comboFuncionario.setSelectedIndex(FkFuncCoord);
+    }
+    
+    public void habAlterar(){
+        btnSalvar.disable();
+    }
+    
+    public void habSalvar(){
+        btnAlterar.disable();
     }
 
     /**
@@ -74,7 +83,7 @@ public class Cad_Coordenador extends javax.swing.JFrame {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Verdana", 3, 24)); // NOI18N
         jLabel1.setText("Cadastro de Coordenador");
@@ -92,6 +101,7 @@ public class Cad_Coordenador extends javax.swing.JFrame {
         });
 
         btnSalvar.setText("Salvar");
+        btnSalvar.setRolloverEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -102,6 +112,7 @@ public class Cad_Coordenador extends javax.swing.JFrame {
         txtID1.setOpaque(false);
 
         btnAlterar.setText("Alterar");
+        btnAlterar.setRolloverEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -156,6 +167,7 @@ public class Cad_Coordenador extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarTurmaActionPerformed

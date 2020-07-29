@@ -38,7 +38,10 @@ public class DaoTurma {
     
     public ResultSet listar(){
     
-        String sql = "select * from turma where status = 'D'";
+        String sql = "select t.ID_Turma, t.letra_turma, f.nome_funcionario, c.ID_Coordenador from turma t\n" +
+                     "join coordenador c on ID_Coordenador = FK_Coordenador\n" +
+                     "join funcionario f on ID_Funcionario = FK_Func_Coord\n" +
+                     "where t.status = 'D' order by ID_Turma;";
         ResultSet rs;
         
         try{

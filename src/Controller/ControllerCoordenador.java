@@ -8,6 +8,7 @@ package Controller;
 import DAO.DaoCoordenador;
 import Model.Coordenador;
 import View.Coordenador.Cad_Coordenador;
+import View.Coordenador.List_Coordenador;
 
 /**
  *
@@ -32,7 +33,7 @@ public class ControllerCoordenador {
             
            daoCoord.adicionar(coord);
             
-           vCadCoord.exibeMensagem("Aluno cadastrado com sucesso!");
+           vCadCoord.exibeMensagem("Coordenador cadastrado com sucesso!");
            vCadCoord.dispose(); 
         }
     }
@@ -46,7 +47,8 @@ public class ControllerCoordenador {
   
            daoCoord.alterar(coord, cod);
             
-           vCadCoord.exibeMensagem("Aluno alterado com sucesso!");
+
+           vCadCoord.exibeMensagem("Coordenador alterado com sucesso!");
            vCadCoord.dispose(); 
         }
 	

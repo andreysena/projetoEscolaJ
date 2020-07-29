@@ -8,6 +8,7 @@ package Controller;
 import DAO.DaoProfessorMateria;
 import Model.ProfessorMateria;
 import View.ProfessorMateria.Cad_ProfessorMateria;
+import View.ProfessorMateria.List_ProfMateria;
 
 /**
  *
@@ -33,7 +34,7 @@ public class ControllerProfMateria {
             
            daoProfTurma.adicionar(profMat);
             
-           vCadProfMat.exibeMensagem("Aluno cadastrado com sucesso!");
+           vCadProfMat.exibeMensagem("Vínculo cadastrado com sucesso!");
            vCadProfMat.dispose(); 
         }
     }
@@ -47,7 +48,7 @@ public class ControllerProfMateria {
   
            daoProfTurma.alterar(profMat, cod);
             
-           vCadProfMat.exibeMensagem("Aluno alterado com sucesso!");
+           vCadProfMat.exibeMensagem("Vínculo alterado com sucesso!");
            vCadProfMat.dispose(); 
         }
 	

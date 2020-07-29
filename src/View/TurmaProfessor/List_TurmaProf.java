@@ -38,6 +38,8 @@ public class List_TurmaProf extends javax.swing.JFrame {
                    rs.getString(1),
                    rs.getString(2),
                    rs.getString(3),
+                   rs.getString(4),
+                   rs.getString(5)
                 });
             }
             
@@ -62,7 +64,14 @@ public class List_TurmaProf extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setText("Turmas e Professores");
@@ -72,11 +81,11 @@ public class List_TurmaProf extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_TurmaProf", "Professor", "Turma"
+                "ID_TurmaProf", "Professor", "ID_Professor", "Turma", "ID_Turma"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -84,6 +93,10 @@ public class List_TurmaProf extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableTurmaProf);
+        if (jTableTurmaProf.getColumnModel().getColumnCount() > 0) {
+            jTableTurmaProf.getColumnModel().getColumn(2).setPreferredWidth(25);
+            jTableTurmaProf.getColumnModel().getColumn(4).setPreferredWidth(25);
+        }
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
@@ -120,13 +133,13 @@ public class List_TurmaProf extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
@@ -146,6 +159,7 @@ public class List_TurmaProf extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -186,15 +200,21 @@ public class List_TurmaProf extends javax.swing.JFrame {
             
             int linha = jTableTurmaProf.getSelectedRow();
             cod = (String) jTableTurmaProf.getValueAt(linha, 0);
-            FkProfTurma = Integer.parseInt((String) jTableTurmaProf.getValueAt(linha, 1));
-            FkTurmaProf = Integer.parseInt((String) jTableTurmaProf.getValueAt(linha, 2));
+            FkProfTurma = Integer.parseInt((String) jTableTurmaProf.getValueAt(linha, 2));
+            FkTurmaProf = Integer.parseInt((String) jTableTurmaProf.getValueAt(linha, 4));
             
             
             Cad_TurmaProfessor alterar = new Cad_TurmaProfessor();
             alterar.buscar(cod, FkTurmaProf, FkProfTurma);
+            alterar.habAlterar();
             alterar.setVisible(true);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        carregarLista();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

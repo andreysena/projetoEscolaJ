@@ -37,7 +37,8 @@ public class List_Turma extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{
                    rs.getString(1),
                    rs.getString(2),
-                   rs.getString(3)
+                   rs.getString(3),
+                   rs.getString(4)
                 });
             }
             
@@ -62,7 +63,14 @@ public class List_Turma extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setText("Listagem de Turmas");
@@ -72,11 +80,11 @@ public class List_Turma extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_Turma", "Nome da Turma", "Coordenador"
+                "ID_Turma", "Nome da Turma", "Coordenador", "ID_Coordenador"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -84,6 +92,9 @@ public class List_Turma extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableTurma);
+        if (jTableTurma.getColumnModel().getColumnCount() > 0) {
+            jTableTurma.getColumnModel().getColumn(3).setPreferredWidth(25);
+        }
 
         btnSair.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         btnSair.setText("Sair");
@@ -146,6 +157,7 @@ public class List_Turma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -186,14 +198,21 @@ public class List_Turma extends javax.swing.JFrame {
             int linha = jTableTurma.getSelectedRow();
             cod = (String) jTableTurma.getValueAt(linha, 0);
             letra_turma = (String) jTableTurma.getValueAt(linha, 1);
-            FkCoord = Integer.parseInt((String) jTableTurma.getValueAt(linha, 2));
+            FkCoord = Integer.parseInt((String) jTableTurma.getValueAt(linha, 3));
             
             
             Cad_Turma alterar = new Cad_Turma();
             alterar.buscar(cod, letra_turma, FkCoord);
+            alterar.habAlterar();
             alterar.setVisible(true);
+            carregarLista();
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        carregarLista();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

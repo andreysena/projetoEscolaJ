@@ -37,7 +37,9 @@ public class List_ProfMateria extends javax.swing.JFrame {
                 modelo.addRow(new Object[]{
                    rs.getString(1),
                    rs.getString(2),
-                   rs.getString(3)
+                   rs.getString(3),
+                   rs.getString(4),
+                   rs.getString(5)
                 });
             }
             
@@ -62,7 +64,14 @@ public class List_ProfMateria extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         jLabel1.setText("Professores e Matérias");
@@ -72,11 +81,11 @@ public class List_ProfMateria extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID_ProfMateria", "Professor", "Matéria"
+                "ID_ProfMateria", "Professor", "ID_Professor", "Matéria", "ID_Materia"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -121,13 +130,13 @@ public class List_ProfMateria extends javax.swing.JFrame {
                         .addGap(250, 250, 250))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 753, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAlterar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnExcluir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
@@ -147,6 +156,7 @@ public class List_ProfMateria extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -186,15 +196,21 @@ public class List_ProfMateria extends javax.swing.JFrame {
             
             int linha = jTableProfMat.getSelectedRow();
             cod = (String) jTableProfMat.getValueAt(linha, 0);
-            FkProfMat = Integer.parseInt((String) jTableProfMat.getValueAt(linha, 1));
-            FkMateria = Integer.parseInt((String) jTableProfMat.getValueAt(linha, 2));
+            FkProfMat = Integer.parseInt((String) jTableProfMat.getValueAt(linha, 2));
+            FkMateria = Integer.parseInt((String) jTableProfMat.getValueAt(linha, 4));
             
             
             Cad_ProfessorMateria alterar = new Cad_ProfessorMateria();
             alterar.buscar(cod, FkProfMat, FkMateria);
+            alterar.habAlterar();
             alterar.setVisible(true);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        carregarLista();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

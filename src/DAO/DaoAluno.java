@@ -44,7 +44,9 @@ public class DaoAluno {
     
     public ResultSet listar(){
     
-        String sql = "select * from aluno where status = 'D'";
+        String sql = "select a.ID_Aluno, a.nome_aluno, a.matricula, a.dt_nasc, a.cpf, a.rg, a.telefone, t.letra_turma, a.FK_Turma from aluno a\n" +
+                        "join turma t on ID_Turma = FK_Turma\n" +
+                            "where a.status = 'D'";
         ResultSet rs;
         
         try{
