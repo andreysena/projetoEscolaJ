@@ -48,8 +48,6 @@ public class ControllerTurma {
   
            daoTurma.alterar(turma, cod);
            
-           List_Turma listTurma = new List_Turma();
-           listTurma.carregarLista();
            vCadTurma.exibeMensagem("Turma alterada com sucesso!");
            vCadTurma.dispose(); 
         }

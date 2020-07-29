@@ -48,8 +48,6 @@ public class ControllerProfMateria {
   
            daoProfTurma.alterar(profMat, cod);
             
-           List_ProfMateria listProfMat = new List_ProfMateria();
-           listProfMat.carregarLista();
            vCadProfMat.exibeMensagem("Vínculo alterado com sucesso!");
            vCadProfMat.dispose(); 
         }

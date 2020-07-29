@@ -6,6 +6,7 @@
 package View.Turma;
 import Controller.ControllerTurma;
 import DAO.DaoCoordenador;
+import Model.Turma;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class Cad_Turma extends javax.swing.JFrame {
     public Cad_Turma() {
         initComponents();
         validaTurma = new ControllerTurma(this);
+        carregaCoord();
     }
     
     public void exibeMensagem(String msg){
@@ -44,7 +46,7 @@ public class Cad_Turma extends javax.swing.JFrame {
     }
     
     public void buscar(String cod, String letra_turma, int FkFuncCoord){
-        txtID.setText(cod);
+        txtID1.setText(cod);
         txtNomeTurma.setText(letra_turma);
         comboCoordenador.setSelectedIndex(FkFuncCoord);
 
@@ -110,6 +112,11 @@ public class Cad_Turma extends javax.swing.JFrame {
 
         btnSalvar.setText("Salvar");
         btnSalvar.setRolloverEnabled(false);
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         txtID1.setEditable(false);
 
@@ -135,10 +142,8 @@ public class Cad_Turma extends javax.swing.JFrame {
                         .addComponent(txtNomeTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(comboCoordenador, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(comboCoordenador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(121, 121, 121))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +185,7 @@ public class Cad_Turma extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -189,10 +195,7 @@ public class Cad_Turma extends javax.swing.JFrame {
 
     private void btnCancelarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarTurmaActionPerformed
         // TODO add your handling code here:
-        String letra_turma = txtNomeTurma.getText();
-        int FkFuncCoord = comboCoordenador.getSelectedIndex();
         
-        validaTurma.verificar(letra_turma, FkFuncCoord);
     }//GEN-LAST:event_btnCancelarTurmaActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -204,6 +207,14 @@ public class Cad_Turma extends javax.swing.JFrame {
         validaTurma.alterar(letra_turma, FkFuncCoord, cod);
         
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        String letra_turma = txtNomeTurma.getText();
+        int FkFuncCoord = comboCoordenador.getSelectedIndex();
+        
+        validaTurma.verificar(letra_turma, FkFuncCoord);
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments

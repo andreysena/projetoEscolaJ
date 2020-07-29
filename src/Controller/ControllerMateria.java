@@ -48,8 +48,6 @@ public class ControllerMateria {
   
            daoMat.alterar(mat, cod);
             
-           List_Materia listMat = new List_Materia();
-           listMat.carregarLista();
            vCadMat.exibeMensagem("Matéria alterada com sucesso!");
            vCadMat.dispose(); 
         }

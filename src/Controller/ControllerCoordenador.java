@@ -47,8 +47,7 @@ public class ControllerCoordenador {
   
            daoCoord.alterar(coord, cod);
             
-           List_Coordenador listaCoord = new List_Coordenador();
-           listaCoord.carregarLista();
+
            vCadCoord.exibeMensagem("Coordenador alterado com sucesso!");
            vCadCoord.dispose(); 
         }

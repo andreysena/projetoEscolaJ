@@ -48,8 +48,6 @@ public class ControllerFuncionario {
   
            daoFunc.alterar(func, cod);
             
-           List_Funcionario listFunc = new List_Funcionario();
-           listFunc.carregarLista();
            vCadFunc.exibeMensagem("Funcionário alterado com sucesso!");
            vCadFunc.dispose(); 
         }

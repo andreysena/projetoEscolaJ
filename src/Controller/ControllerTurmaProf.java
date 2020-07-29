@@ -48,8 +48,6 @@ public class ControllerTurmaProf {
   
            daoTurmaProf.alterar(turmaProf, cod);
             
-           List_TurmaProf listTurmaProf = new List_TurmaProf();
-           listTurmaProf.carregarLista();
            vCadTurmaProf.exibeMensagem("Vínculo alterado com sucesso!");
            vCadTurmaProf.dispose(); 
         }

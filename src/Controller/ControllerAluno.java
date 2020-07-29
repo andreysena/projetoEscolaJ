@@ -49,8 +49,6 @@ public class ControllerAluno {
   
            daoAluno.alterar(aluno, cod);
            
-           List_Aluno listaAluno = new List_Aluno();
-           listaAluno.carregarLista();
            vCadAluno.exibeMensagem("Aluno alterado com sucesso!");
            vCadAluno.dispose(); 
         }

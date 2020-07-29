@@ -48,8 +48,7 @@ public class ControllerProfessor {
   
            daoProf.alterar(prof, cod);
             
-           List_Professor listProf = new List_Professor();
-           listProf.carregarLista();
+
            vCadProf.exibeMensagem("Professor alterado com sucesso!");
            vCadProf.dispose(); 
         }
